@@ -16,13 +16,17 @@ for (int i = 0; i < 5; i++){
 
 void loop() {
 
-for(int i = 0; i<5;i++){
-  Serial.print("Sensor ");
+for(int i = 0; i < 5;i++){
+  sensorReadings[i] = analogRead(sensor[i]);
+  Serial.print("  Sensor ");
   Serial.print(i+1);
-  Serial.println(": ");
-  Serial.println(sensorReadings[i]);
+  Serial.print(": ");
+  Serial.print(sensorReadings[i]);
 }
 
-  delay(100);
+
+Serial.println(" ");
+
+delay(100);
 
 }

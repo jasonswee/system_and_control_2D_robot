@@ -4,7 +4,7 @@ AF_DCMotor motorLeft(1, MOTOR12_1KHZ);
 AF_DCMotor motorRight(4, MOTOR12_1KHZ);
 
 const int sensor[5] = {A0, A1, A2, A3, A4}; // Setting sensor array to analog pins
-const float Kp = 0.6; //CHANGE THESE
+const float Kp = 0.8; //CHANGE THESE
 const float Ki = 0.4;
 const float Kd = 0.3;
 const int setPoint = 3000; // YOU SHOULD CHANGE THIS (This is what the robot will refer to as 'correct') Find position at set point and put the value in.
@@ -17,7 +17,7 @@ int sensorReadings[5] = {0, 0, 0, 0, 0}; // For storing sensor readings
 long sensorWeighted;
 long sensorSum;
 
-int errorValue = 0;
+int correctionValue = 0;
 double lastProportional = 0.0;
 
 void readSensors() {
@@ -37,29 +37,29 @@ void pidCalc() {
   long Derivative = Proportional - lastProportional; // Finds rate of change of difference
   lastProportional = Proportional; // Saves difference state for referencing derivative
 
-  errorValue = int(Proportional * Kp + Integral * Ki + Derivative * Kd); // Applies PID weights
+  correctionValue = int(Proportional * Kp + Integral * Ki + Derivative * Kd); // Applies PID weights
 }
 
 void turnCalc(){  
-// Restrict errorValue to [- maxSpeed, maxSpeed]
-  if (errorValue < -maxSpeed || errorValue > maxSpeed) { 
-    if (errorValue < -maxSpeed) {
-      errorValue= -maxSpeed;
+// Restrict correctionValue to [- maxSpeed, maxSpeed]
+  if (correctionValue < -maxSpeed || correctionValue > maxSpeed) { 
+    if (correctionValue < -maxSpeed) {
+      correctionValue= -maxSpeed;
     }
-    if (errorValue > maxSpeed) {
-      errorValue = maxSpeed;
+    if (correctionValue > maxSpeed) {
+      correctionValue = maxSpeed;
     }      
   }
  
 // Calculate turn values
-  if (errorValue < 0) {
-    rightSpeed = maxSpeed + errorValue;
+  if (correctionValue < 0) {
+    rightSpeed = maxSpeed + correctionValue;
     leftSpeed = maxSpeed;
     }
     
     else {
     rightSpeed = maxSpeed;
-    leftSpeed = maxSpeed - errorValue;
+    leftSpeed = maxSpeed - correctionValue;
     }
 }
 
@@ -95,7 +95,7 @@ void loop()
   Serial.print("R: ");
   Serial.println(rightSpeed);
 
-  Serial.println(errorValue);
+  Serial.println(correctionValue);
 /*
   for (int i = 0; i <5; i++) {
       Serial.print("SNSR ");
