@@ -2,19 +2,22 @@
   Mcontrol.cpp - Library for Motor Control code.
   Created by Jason Swee, March 12, 2018.
 */
-//#include "Arduino.h"
+#include "Arduino.h"
 #include "Mcontrol.h"
+
+
 
 Mcontrol::Mcontrol()//float left, float right)
 {
 	//_left = left;
 	//_right = right;
 
+
 }
 void Mcontrol::stop()                    //Stop
 {
   //digitalWrite(E1,LOW);
-  //igitalWrite(E2,LOW);
+  //digitalWrite(E2,LOW);
 }
 void Mcontrol::advance(float a,float b)          //Move forward
 {
