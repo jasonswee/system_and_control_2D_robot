@@ -1,9 +1,9 @@
-#include <AFMotor.h>
+//#include <AFMotor.h>
 
-AF_DCMotor motorLeft(1, MOTOR12_1KHZ);
-AF_DCMotor motorRight(4, MOTOR12_1KHZ);
+//AF_DCMotor motorLeft(1, MOTOR12_1KHZ);
+//AF_DCMotor motorRight(4, MOTOR12_1KHZ);
 
-const int sensor[5] = {A0, A1, A2, A3, A4}; // Setting sensor array to analog pins
+const int sensor[5] = {A1, A2, A3, A4, A5}; // Setting sensor array to analog pins
 
 int sensorReadings[5] = {0, 0, 0, 0, 0}; // For storing sensor readings
 long sensorWeighted;
