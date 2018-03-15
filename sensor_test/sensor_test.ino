@@ -1,12 +1,11 @@
-const int a_no = 3; //Analog sensor count
-const int d_no = 3; //Digital sensor count
+const int a_no = 5; //Analog sensor count
 
-int s_reads[6] = {0, 0, 0, 0, 0, 0}; // For storing sensor readings
+int s_reads[5] = {0, 0, 0, 0, 0}; // For storing sensor readings
 
-const int a_pins[a_no] = {A0,A1,A2}; // Setting sensor array to analog pins, including LDR sensor
-const int d_pins[d_no] = {0,1,2}; // Setting sensor array to digital pins
+const int a_pins[a_no] = {A1,A2,A3,A4,A5}; // Setting sensor array to analog pins, including LDR sensor
 
-
+int single_pin = A5;
+int single_read = 0;
 
 void setup()
 {
@@ -14,28 +13,27 @@ void setup()
 	{
 		pinMode(a_pins[i], INPUT);
 	}
-	for (int i = 0; i < d_no; i++)
-	{
-		pinMode(d_pins[i], INPUT);
-	}
     Serial.begin(9600);
 }
 
 void loop() {
+  single_read = analogRead(single_pin);
+  Serial.print("A_Sensor ");
+  Serial.print(single_read);
+  Serial.println();
+  single_read = map(single_read, 300, 1023, 0, 1000);
+  Serial.print("Calibrater_Sensor ");
+  Serial.print(single_read);
 
-for(int i = 0; i<a_no;i++){
+/*
+for(int i = 0; i<=a_no;i++){
   s_reads[i] = analogRead(a_pins[i]);
-  Serial.print("Analog Sensor ");
+  Serial.print("A_Sensor ");
   Serial.print(i);
-  Serial.println(": ");
-  Serial.println(s_reads[i]);
-}
-for(int i = 0; i<d_no;i++){
-  s_reads[i] = digitalRead(d_pins[i]);
-  Serial.print("Digital Sensor ");
-  Serial.print(i);
-  Serial.println(": ");
-  Serial.println(s_reads[i]);
-}
+  Serial.print(": ");
+  Serial.print(s_reads[i]);
+  Serial.print("  ");
+}*/
+Serial.println();
   delay(100);
 }

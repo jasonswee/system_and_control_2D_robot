@@ -14,12 +14,6 @@ int oldkey=-1;
 //int M1 = 4;    //M1 Direction Control
 //int M2 = 7;    //M1 Direction Control
 
-///For previous Romeo, please use these pins.
-//int E1 = 6;     //M1 Speed Control
-//int E2 = 9;     //M2 Speed Control
-//int M1 = 7;    //M1 Direction Control
-//int M2 = 8;    //M1 Direction Control
-
 const float Kp = 0.8; //CHANGE THESE
 const float Ki = 0.4;
 const float Kd = 0.3;
