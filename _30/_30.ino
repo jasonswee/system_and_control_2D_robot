@@ -1,21 +1,24 @@
-int  adc_key_val[5] ={30, 150, 360, 535, 760 };
+#include "Mcontrol.h"
+
+Mcontrol mcontrol();
+
+int adc_key_val[5] ={30, 150, 360, 535, 760 };
 int NUM_KEYS = 5;
 int adc_key_in;
 int key=-1;
 int oldkey=-1;
 
 //Standard PWM DC control
-int E1 = 5;     //M1 Speed Control
-int E2 = 6;     //M2 Speed Control
-int M1 = 4;    //M1 Direction Control
-int M2 = 7;    //M1 Direction Control
+//int E1 = 5;     //M1 Speed Control
+//int E2 = 6;     //M2 Speed Control
+//int M1 = 4;    //M1 Direction Control
+//int M2 = 7;    //M1 Direction Control
 
-///For previous Romeo, please use these pins.
-//int E1 = 6;     //M1 Speed Control
-//int E2 = 9;     //M2 Speed Control
-//int M1 = 7;    //M1 Direction Control
-//int M2 = 8;    //M1 Direction Control
+const float Kp = 0.8; //CHANGE THESE
+const float Ki = 0.4;
+const float Kd = 0.3;
 
+const int setPoint = 3000;
 
 void stop(void)                    //Stop
 {
@@ -29,21 +32,21 @@ void advance(char a,char b)          //Move forward
   analogWrite (E2,b);    
   digitalWrite(M2,HIGH);
 }  
-void back_off (char a,char b)          //Move backward
+void back_off(char a,char b)          //Move backward
 {
   analogWrite (E1,a);
   digitalWrite(M1,LOW);   
   analogWrite (E2,b);    
   digitalWrite(M2,LOW);
 }
-void turn_L (char a,char b)             //Turn Left
+void turn_L(char a,char b)             //Turn Left
 {
   analogWrite (E1,a);
   digitalWrite(M2,LOW);    
   analogWrite (E2,b);    
   digitalWrite(M1,HIGH);
 }
-void turn_R (char a,char b)             //Turn Right
+void turn_R(char a,char b)             //Turn Right
 {
   analogWrite (E1,a);
   digitalWrite(M2,HIGH);    
@@ -139,17 +142,19 @@ void onboard_button_control(void)
   digitalWrite(13, LOW);
 }
 void setup(void) 
-{ 
+{
   pinMode(13, OUTPUT);  //we'll use the debug LED to output a heartbeat
   int i;
   for(i=4;i<=7;i++)
-    pinMode(i, OUTPUT);  
+    pinMode(i, OUTPUT);
   Serial.begin(9600);      //Set Baud Rate
   Serial.println("Run keyboard control");
 } 
 void loop(void) 
 {
-  keyboard_control();
-  onboard_button_control();
+  //keyboard_control();
+  //onboard_button_control();
+  //mcontrol.advance(12,123);
+	
   
 }
